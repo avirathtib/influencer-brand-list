@@ -1,18 +1,23 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase-config";
+import { db } from "../firebase-config";
+import { doc, setDoc } from "firebase/firestore";
+import { ProfileContext } from "../App";
 
 function Signup() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerFullName, setRegisterFullName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [profileType, setProfileType] = useState("oneWay");
+  const navigate = useNavigate();
+  const { profileType, setProfileType } = useContext(ProfileContext);
 
   const register = async () => {
     try {
@@ -22,15 +27,14 @@ function Signup() {
         registerPassword
       );
       console.log(user);
-      // const query = await db
-      //   .collection("users")
-      //   .collection(profileType)
-      //   .doc(registerEmail)
-      //   .set({
-      //     email: registerEmail,
-      //     name: registerFullName,
-      //     profileType: profileType,
-      //   });
+      await setDoc(doc(db, profileType, registerEmail), {
+        email: registerEmail,
+        name: registerFullName,
+        profileType: profileType,
+        extendedProfileCreated: false,
+      });
+
+      navigate("/login");
     } catch (error) {
       console.log(error.message);
     }
@@ -70,14 +74,14 @@ function Signup() {
                 type="radio"
                 value={profileType}
                 name="profileType"
-                checked={profileType == "Influencers"}
+                checked={profileType == "Influencer"}
               />
               Influencer
             </div>
             <div
               className="radio-btn"
               onClick={() => {
-                setProfileType("Brands");
+                setProfileType("Brand");
               }}
             >
               <input

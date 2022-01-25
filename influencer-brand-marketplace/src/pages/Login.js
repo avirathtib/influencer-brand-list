@@ -5,25 +5,36 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "../firebase-config";
-import { UserContext } from "../App";
+import { UserContext, ProfileContext } from "../App";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase-config";
 
 function Login() {
-  const { loginEmail, setLoginEmail } = useContext(UserContext);
+  const { email, setEmail } = useContext(UserContext);
+  const { profileType, setProfileType } = useContext(ProfileContext);
   const [loginPassword, setLoginPassword] = useState("");
-
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
+      const user = await signInWithEmailAndPassword(auth, email, loginPassword);
       console.log(user);
+      console.log("logged in");
+      const docRef = doc(db, "Brand", email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setProfileType("Brand");
+      } else {
+        // doc.data() will be undefined in this case
+        setProfileType("Influencer");
+      }
+
+      navigate("/homepage");
     } catch (error) {
       console.log(error.message);
     }
@@ -36,7 +47,7 @@ function Login() {
         <input
           placeholder="Email..."
           onChange={(event) => {
-            setLoginEmail(event.target.value);
+            setEmail(event.target.value);
           }}
         />
         <input
@@ -45,7 +56,9 @@ function Login() {
             setLoginPassword(event.target.value);
           }}
         />
-        <Link to={`/homepage}`}>Login</Link>
+        <div>
+          <button onClick={login}> Login</button>
+        </div>
       </div>
     </div>
   );
