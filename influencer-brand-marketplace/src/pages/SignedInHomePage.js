@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { ProfileContext } from "../App";
 
 import InfluencerProfiles from "./InfluencerProfiles";
+import CreateBrandsProfile from "./pages/CreateBrandsProfile";
 
 function SignedInHomePage() {
   const { profileType, setProfileType } = useContext(ProfileContext);
@@ -16,8 +17,31 @@ function SignedInHomePage() {
           <Link to={`/home`}>Home</Link>
         )}
       </div> */}
-      <Link to={`/createInfluencerPortfolio`}>Create Profile</Link>
-      <InfluencerProfiles />
+      {(() => {
+        if (profileType === "Influencer") {
+          return (
+            <Link to={`/createInfluencerPortfolio`}>
+              Create Influencer Profile
+            </Link>
+          );
+        } else {
+          return (
+            // <Link to={`/createBrandsPortfolio`}>Create Brand Profile</Link>
+            <p>jj</p>
+          );
+        }
+      })()}
+
+      <div>
+        {(() => {
+          if (profileType === "Influencer") {
+            return <InfluencerProfiles />;
+          } else {
+            return;
+          }
+        })()}
+        {/* <InfluencerProfiles /> */}
+      </div>
     </div>
   );
 }

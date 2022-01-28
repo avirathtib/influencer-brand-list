@@ -4,17 +4,14 @@ import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { UserContext, ProfileContext } from "../App";
 import ReactTagInput from "@pathofdev/react-tag-input";
 
-function CreateInfluencerProfile() {
+function CreateBrandsProfile() {
   const { email, setEmail } = useContext(UserContext);
   const { profileType, setProfileType } = useContext(ProfileContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("defaultdesc");
   const [location, setLocation] = useState("defaultloc");
-  const [instagram, setInstagram] = useState("defaultinsta");
-  const [twitter, setTwitter] = useState("defaultTwitter");
-  const [facebook, setFacebook] = useState("defaultFacebook");
-  const [portfolio, setPortfolio] = useState("defaultportfolio");
-  const [salary, setSalary] = useState("defaultsalary");
+  const [link, setLink] = useState("defaultlink");
+  const [remote, setRemote] = useState("false");
   const [tags, setTags] = useState([]);
 
   //need to do tags, image
@@ -38,39 +35,11 @@ function CreateInfluencerProfile() {
   };
 
   const locationHandler = (e) => {
-    console.log(e.target.value);
     setLocation(e.target.value);
-    console.log(location);
   };
 
-  const instagramHandler = (e) => {
-    console.log(e.target.value);
-    setInstagram(e.target.value);
-    console.log(instagram);
-  };
-
-  const twitterHandler = (e) => {
-    console.log(e.target.value);
-    setTwitter(e.target.value);
-    console.log(twitter);
-  };
-
-  const facebookHandler = (e) => {
-    console.log(e.target.value);
-    setFacebook(e.target.value);
-    console.log(facebook);
-  };
-
-  const portfolioHandler = (e) => {
-    console.log(e.target.value);
-    setPortfolio(e.target.value);
-    console.log(portfolio);
-  };
-
-  const salaryHandler = (e) => {
-    console.log(e.target.value);
-    setSalary(e.target.value);
-    console.log(salary);
+  const linkHandler = (e) => {
+    setLink(e.target.value);
   };
 
   const submitHandler = (e) => {
@@ -83,11 +52,9 @@ function CreateInfluencerProfile() {
         {
           description: description,
           location: location,
-          instagram: instagram,
-          facebook: facebook,
-          portfolio: portfolio,
-          salary: salary,
+          socialmedialink: link,
           extendedProfileCreated: true,
+          remote: remote,
           tags: tags,
         },
         { merge: true }
@@ -136,44 +103,47 @@ function CreateInfluencerProfile() {
         <br />
         <input
           type="text"
-          name="instagram"
+          name="Link to social media"
           required="required"
-          onChange={instagramHandler}
+          onChange={linkHandler}
           placeholder="Instagram"
         />
+
         <br />
-        <input
-          type="text"
-          name="twitter"
-          required="required"
-          onChange={twitterHandler}
-          placeholder="Twitter"
-        />
-        <br />{" "}
-        <input
-          type="text"
-          name="Facebook"
-          required="required"
-          onChange={facebookHandler}
-          placeholder="Facebook"
-        />
-        <br />{" "}
-        <input
-          type="text"
-          name="portfolio"
-          required="required"
-          onChange={portfolioHandler}
-          placeholder="Portfolio"
-        />
-        <br />
-        <input
-          type="text"
-          name="salary"
-          required="required"
-          onChange={salaryHandler}
-          placeholder="Salary"
-        />
-        <br />
+
+        <div>
+          <div className="radio-btn-container">
+            <div
+              className="radio-btn"
+              onClick={() => {
+                setRemote("true");
+              }}
+            >
+              <input
+                type="radio"
+                value={remote}
+                name="remote"
+                checked={remote == "true"}
+              />
+              Remote
+            </div>
+            <div
+              className="radio-btn"
+              onClick={() => {
+                setRemote("false");
+              }}
+            >
+              <input
+                type="radio"
+                value={remote}
+                name="remote"
+                checked={remote == "false"}
+              />
+              Not Remote
+            </div>
+          </div>
+        </div>
+
         <p>Tags</p>
         <ReactTagInput tags={tags} onChange={(newTags) => setTags(newTags)} />
         <input type="submit" name="Submit" />
@@ -182,4 +152,4 @@ function CreateInfluencerProfile() {
   );
 }
 
-export default CreateInfluencerProfile;
+export default CreateBrandsProfile;

@@ -5,6 +5,8 @@ import Signup from "./pages/Signup";
 import SignedInHomePage from "./pages/SignedInHomePage";
 import SignedOutHomePage from "./pages/SignedOutHomePage";
 import CreateInfluencerProfile from "./pages/CreateInfluencerProfile";
+import InfluencerProfiles from "./pages/InfluencerProfiles";
+import CreateBrandsProfile from "./pages/CreateBrandsProfile";
 
 export const UserContext = createContext();
 export const ProfileContext = createContext();
@@ -21,9 +23,14 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="homepage" element={<SignedInHomePage />} />
+            <Route path="influencerProfiles" element={<InfluencerProfiles />} />
             <Route
               path="createInfluencerPortfolio"
               element={<CreateInfluencerProfile />}
+            />
+            <Route
+              path="createBrandsPortfolio"
+              element={<CreateBrandsProfile />}
             />
           </Routes>
         </Router>
