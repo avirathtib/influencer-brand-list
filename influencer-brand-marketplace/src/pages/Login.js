@@ -22,17 +22,19 @@ function Login() {
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, loginPassword);
-      console.log(user);
+     
       console.log("logged in");
       const docRef = doc(db, "Brand", email);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         setProfileType("Brand");
+        
       } else {
         // doc.data() will be undefined in this case
         setProfileType("Influencer");
       }
+      console.log(profileType)
 
       navigate("/homepage");
     } catch (error) {

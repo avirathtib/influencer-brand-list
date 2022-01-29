@@ -1,46 +1,53 @@
 import { React, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { ProfileContext } from "../App";
-
+import { useNavigate } from "react-router-dom";
 import InfluencerProfiles from "./InfluencerProfiles";
-import CreateBrandsProfile from "./pages/CreateBrandsProfile";
+import BrandProfiles from "./BrandProfiles";
+//import CreateBrandsProfile from "./pages/CreateBrandsProfile";
 
 function SignedInHomePage() {
+  const navigate = useNavigate();
   const { profileType, setProfileType } = useContext(ProfileContext);
+  const createinf = () => {
+    navigate("/createInfluencerPortfolio");
+  };
+  const createbrand = () => {
+    navigate("/createBrandsPortfolio");
+  };
   return (
     <div>
       <p>Hello</p>
-      {/* <div>
-        {profileType === "Influencer" ? (
-          <Link to={`/createInfluencerPortfolio`}>Create Profile</Link>
-        ) : (
-          <Link to={`/home`}>Home</Link>
-        )}
-      </div> */}
-      {(() => {
-        if (profileType === "Influencer") {
-          return (
-            <Link to={`/createInfluencerPortfolio`}>
-              Create Influencer Profile
-            </Link>
-          );
-        } else {
-          return (
-            // <Link to={`/createBrandsPortfolio`}>Create Brand Profile</Link>
-            <p>jj</p>
-          );
-        }
-      })()}
+      <p>{profileType}</p>
+     
+  
+       <div>
+          <button onClick={createinf}>Create Influencer Profile</button>
+          </div>
+
+          <div>
+            <button onClick={createbrand}>Create Brand Profile</button>
+            </div>
+
+            
 
       <div>
         {(() => {
           if (profileType === "Influencer") {
-            return <InfluencerProfiles />;
+           
+            return 
+            
+            <InfluencerProfiles />;
           } else {
-            return;
+           
+            return
+
+           <p>hi</p>
           }
         })()}
-        {/* <InfluencerProfiles /> */}
+
+        
+        <InfluencerProfiles />
       </div>
     </div>
   );

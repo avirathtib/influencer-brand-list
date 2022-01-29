@@ -6,7 +6,7 @@ import SignedInHomePage from "./pages/SignedInHomePage";
 import SignedOutHomePage from "./pages/SignedOutHomePage";
 import CreateInfluencerProfile from "./pages/CreateInfluencerProfile";
 import InfluencerProfiles from "./pages/InfluencerProfiles";
-import CreateBrandsProfile from "./pages/CreateBrandsProfile";
+ import CreateBrandsProfile from "./pages/CreateBrandsProfile";
 
 export const UserContext = createContext();
 export const ProfileContext = createContext();

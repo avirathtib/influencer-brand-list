@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { db } from "../firebase-config";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { UserContext, ProfileContext } from "../App";
+import { getStorage, ref } from "firebase/storage";
 import ReactTagInput from "@pathofdev/react-tag-input";
 
 function CreateInfluencerProfile() {
@@ -16,8 +17,13 @@ function CreateInfluencerProfile() {
   const [portfolio, setPortfolio] = useState("defaultportfolio");
   const [salary, setSalary] = useState("defaultsalary");
   const [tags, setTags] = useState([]);
+  const storage = getStorage();
 
   //need to do tags, image
+  const [image , setImage] = useState('');
+const upload = ()=>{
+  
+}
 
   const nameHandler = (e) => {
     console.log(e.target.value);
@@ -74,8 +80,11 @@ function CreateInfluencerProfile() {
   };
 
   const submitHandler = (e) => {
+    console.log(profileType)
     e.preventDefault();
     try {
+      console.log(profileType)
+      console.log(email)
       const addDetails = doc(db, profileType, email);
       console.log(addDetails);
       setDoc(
@@ -176,6 +185,10 @@ function CreateInfluencerProfile() {
         <br />
         <p>Tags</p>
         <ReactTagInput tags={tags} onChange={(newTags) => setTags(newTags)} />
+        <center>
+      <input type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
+      <button onClick={upload}>Upload</button>
+      </center>
         <input type="submit" name="Submit" />
       </form>
     </div>
