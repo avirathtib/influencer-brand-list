@@ -42,7 +42,8 @@ function InfluencerProfiles() {
     }
   };
 
-  function goToProfileHandler(profile){
+  function handleClick(profile){
+    setClickedProfile(profile);
     console.log("Hello")
     navigate(`/profiles/${profile.email}`)
   }
@@ -63,19 +64,44 @@ function InfluencerProfiles() {
         >
         
           {profiles.map((profile) => (
+            
+            // <Col>
+            //   <button  onclick = {() => {goToProfileHandler(profile)}} >View Profile</button>
+            //   <Card>
+            //     <Card.Img
+            //       variant="top"
+            //       src="https://www.kit.com/images/Frame-4057.png"
+            //     />
+            //     <Card.Body>
+            //       <Card.Title>{profile.name}</Card.Title>
+            //       <Card.Text>{profile.description}</Card.Text>
+            //       {/* <button  onclick = {() => {goToProfileHandler(profile)}} >View Profile</button> */}
+            //     </Card.Body>
+            //   </Card>
+            // </Col>
+
             <Col>
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src="https://www.kit.com/images/Frame-4057.png"
-                />
+                    <div>
+            <Row>
+              <div onClick={() => handleClick(profile)}>
+                <Card style={{ width: '18rem', cursor : 'pointer' }} >
+                <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                  <Card.Title>{profile.name}</Card.Title>
-                  <Card.Text>{profile.description}</Card.Text>
-                  <button  onclick = {() => {goToProfileHandler(profile)}} >View Profile</button>
+                    <Card.Title>{profile.name}</Card.Title>
+                    <Card.Text>
+                    {profile.description}
+                    </Card.Text>
+                    <button >View Profile</button>
                 </Card.Body>
-              </Card>
+                </Card>
+              </div>
+            </Row>
+        </div>
+
+            
             </Col>
+
+            
           ))}
         </section>
       </ScrollContainer>
