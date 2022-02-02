@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef } from "react";
+import React, { useEffect, useState, createRef , useContext} from "react";
 import { db } from "../firebase-config";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
@@ -6,6 +6,8 @@ import Card from "react-bootstrap/Card";
 import { Col, Row, Form } from "react-bootstrap";
 import ScrollContainer from "react-indiana-drag-scroll";
 import "../styles/cardStyle.css";
+import { useNavigate } from "react-router-dom";
+import { ClickedProfileContext } from "../App";
 
 const numbers = new Array(20).fill(1).map((_, index) => index + 1);
 
@@ -14,7 +16,9 @@ const clickHandler = () => {
 };
 
 function InfluencerProfiles() {
+  const navigate = useNavigate();
   const [profiles, setProfiles] = useState([]);
+  const { clickedProfile, setClickedProfile } = useContext(ClickedProfileContext);
   useEffect(() => {
     loop();
   }, []);
@@ -38,6 +42,11 @@ function InfluencerProfiles() {
     }
   };
 
+  function goToProfileHandler(profile){
+    console.log("Hello")
+    navigate(`/profiles/${profile.email}`)
+  }
+
   return (
     <div>
       <img
@@ -52,24 +61,7 @@ function InfluencerProfiles() {
           onFocus={enableKeyboardCursorToScroll}
           ref={scrollRef}
         >
-          {/* {profiles.map((profile) => (
-            <div
-              key={profile.name}
-              className="row"
-              style={{ width: 200 }}
-              onClick={clickHandler}
-            >
-              <div
-                style={{
-                  width: 600,
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                {profile.description}
-              </div>
-            </div>
-          ))} */}
+        
           {profiles.map((profile) => (
             <Col>
               <Card>
@@ -80,6 +72,7 @@ function InfluencerProfiles() {
                 <Card.Body>
                   <Card.Title>{profile.name}</Card.Title>
                   <Card.Text>{profile.description}</Card.Text>
+                  <button  onclick = {() => {goToProfileHandler(profile)}} >View Profile</button>
                 </Card.Body>
               </Card>
             </Col>

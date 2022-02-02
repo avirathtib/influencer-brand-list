@@ -19,7 +19,7 @@ function SignedInHomePage() {
     <div>
       <p>Hello</p>
       <p>{profileType}</p>
-     
+      {console.log(profileType)}
   
        <div>
           <button onClick={createinf}>Create Influencer Profile</button>
@@ -32,22 +32,10 @@ function SignedInHomePage() {
             
 
       <div>
-        {(() => {
-          if (profileType === "Influencer") {
-           
-            return 
-            
-            <InfluencerProfiles />;
-          } else {
-           
-            return
-
-           <p>hi</p>
-          }
-        })()}
-
-        
-        <InfluencerProfiles />
+        {profileType == "Brand" ? (
+          <BrandProfiles/>
+        ) : 
+        <InfluencerProfiles/>}
       </div>
     </div>
   );

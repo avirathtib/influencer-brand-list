@@ -6,15 +6,19 @@ import SignedInHomePage from "./pages/SignedInHomePage";
 import SignedOutHomePage from "./pages/SignedOutHomePage";
 import CreateInfluencerProfile from "./pages/CreateInfluencerProfile";
 import InfluencerProfiles from "./pages/InfluencerProfiles";
- import CreateBrandsProfile from "./pages/CreateBrandsProfile";
+import CreateBrandsProfile from "./pages/CreateBrandsProfile";
+import InfluencerIndividualProfiles from "./pages/InfluencerIndividualProfiles"
 
 export const UserContext = createContext();
 export const ProfileContext = createContext();
+export const ClickedProfileContext = createContext();
 
 function App() {
   const [email, setEmail] = useState("");
   const [profileType, setProfileType] = useState("");
+  const [clickedProfile, setClickedProfile] = useState("");
   return (
+    <ClickedProfileContext.Provider value={{clickedProfile, setClickedProfile}}>
     <UserContext.Provider value={{ email, setEmail }}>
       <ProfileContext.Provider value={{ profileType, setProfileType }}>
         <Router>
@@ -29,6 +33,10 @@ function App() {
               element={<CreateInfluencerProfile />}
             />
             <Route
+              path="profiles/:id"
+              element={<InfluencerIndividualProfiles/>}
+            />
+            <Route
               path="createBrandsPortfolio"
               element={<CreateBrandsProfile />}
             />
@@ -36,6 +44,8 @@ function App() {
         </Router>
       </ProfileContext.Provider>
     </UserContext.Provider>
+    </ClickedProfileContext.Provider>
+
   );
 }
 

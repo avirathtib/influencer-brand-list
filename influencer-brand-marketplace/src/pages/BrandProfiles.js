@@ -52,30 +52,12 @@ function BrandProfiles() {
           onFocus={enableKeyboardCursorToScroll}
           ref={scrollRef}
         >
-          {/* {profiles.map((profile) => (
-            <div
-              key={profile.name}
-              className="row"
-              style={{ width: 200 }}
-              onClick={clickHandler}
-            >
-              <div
-                style={{
-                  width: 600,
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                {profile.description}
-              </div>
-            </div>
-          ))} */}
           {profiles.map((profile) => (
             <Col>
               <Card>
                 <Card.Img
                   variant="top"
-                  src="https://www.kit.com/images/Frame-4057.png"
+                  src="https://www.electrochem.org/wp-content/uploads/2019/09/GeorgiaTech400x400.jpg"
                 />
                 <Card.Body>
                   <Card.Title>{profile.name}</Card.Title>
