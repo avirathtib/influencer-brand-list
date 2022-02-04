@@ -3,7 +3,7 @@ import { db } from "../firebase-config";
 import app from "../firebase-config";
 import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { FieldValue } from "@firebase/firestore";
-import { UserContext, ProfileContext } from "../App";
+import { UserContext, ProfileContext, ClickedProfileContext } from "../App";
 import {
   getStorage,
   ref,
@@ -15,6 +15,9 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 
 function CreateInfluencerProfile() {
   const { email, setEmail } = useContext(UserContext);
+  const { clickedProfile, setClickedProfile } = useContext(
+    ClickedProfileContext
+  );
   const { profileType, setProfileType } = useContext(ProfileContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("defaultdesc");
@@ -95,6 +98,7 @@ function CreateInfluencerProfile() {
     );
 
     tags.map((tag) => addToTags(tag));
+    //navigate(`/profiles/${profile.email}`)
   };
 
   const addToTags = async (tag) => {

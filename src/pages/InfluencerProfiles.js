@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef , useContext} from "react";
+import React, { useEffect, useState, createRef, useContext } from "react";
 import { db } from "../firebase-config";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
@@ -18,7 +18,9 @@ const clickHandler = () => {
 function InfluencerProfiles() {
   const navigate = useNavigate();
   const [profiles, setProfiles] = useState([]);
-  const { clickedProfile, setClickedProfile } = useContext(ClickedProfileContext);
+  const { clickedProfile, setClickedProfile } = useContext(
+    ClickedProfileContext
+  );
   useEffect(() => {
     loop();
   }, []);
@@ -42,54 +44,51 @@ function InfluencerProfiles() {
     }
   };
 
-  function handleClick(profile){
+  function handleClick(profile) {
     setClickedProfile(profile);
-    console.log("Hello")
-    navigate(`/profiles/${profile.email}`)
+    console.log("Hello");
+    navigate(`/profiles/${profile.email}`);
   }
 
   return (
     <div>
-      <img
-        src="gold.jpg"
-        width="300px"
-        alt="indiana jones contemplates swiping the statue"
-      />
-      <h1>Drag with Scrollbars using React Indiana Drag Scroll</h1>
-      <ScrollContainer className="container">
-        <section
-          className="tiles"
-          onFocus={enableKeyboardCursorToScroll}
-          ref={scrollRef}
-        >
-        
-          {profiles.map((profile) => (
-
-            <Col>
-                    <div>
-            <Row>
-              <div onClick={() => handleClick(profile)}>
-                <Card style={{ width: '18rem', cursor : 'pointer' }} >
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                    <Card.Title>{profile.name}</Card.Title>
-                    <Card.Text>
-                    {profile.description}
-                    </Card.Text>
-                    <button >View Profile</button>
-                </Card.Body>
-                </Card>
-              </div>
-            </Row>
-        </div>
-
-            
-            </Col>
-
-            
-          ))}
-        </section>
-      </ScrollContainer>
+      <div>
+        <img
+          src="gold.jpg"
+          width="300px"
+          alt="indiana jones contemplates swiping the statue"
+        />
+        <h1>Drag with Scrollbars using React Indiana Drag Scroll</h1>
+        <ScrollContainer className="container">
+          <section
+            className="tiles"
+            onFocus={enableKeyboardCursorToScroll}
+            ref={scrollRef}
+          >
+            {profiles.map((profile) => (
+              <Col>
+                <div>
+                  <Row>
+                    <div onClick={() => handleClick(profile)}>
+                      <Card style={{ width: "18rem", cursor: "pointer" }}>
+                        <Card.Img variant="top" src="holder.js/100px180" />
+                        <Card.Body>
+                          <Card.Title>{profile.name}</Card.Title>
+                          <Card.Text>{profile.description}</Card.Text>
+                          <button>View Profile</button>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  </Row>
+                </div>
+              </Col>
+            ))}
+          </section>
+        </ScrollContainer>
+      </div>
+      <div>
+        <p> profiles by tag</p>
+      </div>
     </div>
   );
 }
