@@ -11,6 +11,8 @@ function CreateBrandsProfile() {
   const [name, setName] = useState("");
   const [jobSummary, setJobSummary] = useState("defaultdesc");
   const [companySummary, setCompanySummary] = useState("defaultdesc");
+  const [expectedSkills, setExpectedSkills] = useState("defaultdesc");
+  const [benefits, setBenefits] = useState("defaultdesc");
   const [location, setLocation] = useState("defaultloc");
   const [link, setLink] = useState("defaultlink");
   const [remote, setRemote] = useState("false");
@@ -30,10 +32,27 @@ function CreateBrandsProfile() {
     console.log(email);
   };
 
+  const companySummaryHandler = (e) => {
+    setCompanySummary(e.target.value);
+    console.log(companySummary);
+  };
+
   const jobSummaryHandler = (e) => {
     console.log(e.target.value);
     setJobSummary(e.target.value);
     console.log(jobSummary);
+  };
+
+  const expectedSkillsHandler = (e) => {
+    console.log(e.target.value);
+    setExpectedSkills(e.target.value);
+    console.log(expectedSkills);
+  };
+
+  const benefitsHandler = (e) => {
+    console.log(e.target.value);
+    setBenefits(e.target.value);
+    console.log(benefits);
   };
 
   const locationHandler = (e) => {
@@ -53,6 +72,9 @@ function CreateBrandsProfile() {
         addDetails,
         {
           jobSummary: jobSummary,
+          companySummary: companySummary,
+          benefits: benefits,
+          expectedSkills: expectedSkills,
           location: location,
           socialmedialink: link,
           extendedProfileCreated: true,
@@ -91,6 +113,21 @@ function CreateBrandsProfile() {
           type="text"
           name="jobSummary"
           required="required"
+          onChange={jobSummaryHandler}
+          placeholder="Job Summary"
+        />
+        <br />
+        <input
+          type="text"
+          name="companySummary"
+          required="required"
+          onChange={companySummaryHandler}
+          placeholder="Company Summary"
+        />
+        <br />
+        <input
+          type="text"
+          name="jobSummary"
           onChange={jobSummaryHandler}
           placeholder="Job Summary"
         />
