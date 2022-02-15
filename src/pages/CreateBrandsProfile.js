@@ -9,7 +9,8 @@ function CreateBrandsProfile() {
   const { email, setEmail } = useContext(UserContext);
   const { profileType, setProfileType } = useContext(ProfileContext);
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("defaultdesc");
+  const [jobSummary, setJobSummary] = useState("defaultdesc");
+  const [companySummary, setCompanySummary] = useState("defaultdesc");
   const [location, setLocation] = useState("defaultloc");
   const [link, setLink] = useState("defaultlink");
   const [remote, setRemote] = useState("false");
@@ -29,10 +30,10 @@ function CreateBrandsProfile() {
     console.log(email);
   };
 
-  const descriptionHandler = (e) => {
+  const jobSummaryHandler = (e) => {
     console.log(e.target.value);
-    setDescription(e.target.value);
-    console.log(description);
+    setJobSummary(e.target.value);
+    console.log(jobSummary);
   };
 
   const locationHandler = (e) => {
@@ -51,7 +52,7 @@ function CreateBrandsProfile() {
       setDoc(
         addDetails,
         {
-          description: description,
+          jobSummary: jobSummary,
           location: location,
           socialmedialink: link,
           extendedProfileCreated: true,
@@ -63,10 +64,7 @@ function CreateBrandsProfile() {
     } catch (err) {
       console.log(err);
     }
-
-     
-  }
- 
+  };
 
   return (
     <div>
@@ -91,10 +89,10 @@ function CreateBrandsProfile() {
         <br />
         <input
           type="text"
-          name="description"
+          name="jobSummary"
           required="required"
-          onChange={descriptionHandler}
-          placeholder="Description"
+          onChange={jobSummaryHandler}
+          placeholder="Job Summary"
         />
         <br />
         <input

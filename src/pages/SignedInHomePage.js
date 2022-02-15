@@ -10,11 +10,12 @@ import {
 } from "firebase/firestore";
 import { ProfileContext, SelectedTagsContext } from "../App";
 import { useNavigate } from "react-router-dom";
-import InfluencerProfiles from "./InfluencerProfiles";
 import BrandProfiles from "./BrandProfiles";
 //import CreateBrandsProfile from "./pages/CreateBrandsProfile";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import InfluencerProfiles2 from "./InfluencerProfiles2";
+import "../styles/mui.css";
 
 function SignedInHomePage() {
   const { profileType, setProfileType } = useContext(ProfileContext);
@@ -46,16 +47,19 @@ function SignedInHomePage() {
     navigate("/createBrandsPortfolio");
   };
   const handleClick = (tagName) => {
-    selectedTagList.push(tagName);
-    setSelectedTagList(selectedTagList);
+    const newArr = [...selectedTagList];
+    newArr.push(tagName);
+    setSelectedTagList(newArr);
     console.log(selectedTagList);
   };
 
   const handleDelete = (tagName) => {
-    const index = selectedTagList.indexOf(tagName);
+    const newArr = [...selectedTagList];
+
+    const index = newArr.indexOf(tagName);
     if (index > -1) {
-      selectedTagList.splice(index, 1); // 2nd parameter means remove one item only
-      setSelectedTagList(selectedTagList);
+      newArr.splice(index, 1); // 2nd parameter means remove one item only
+      setSelectedTagList(newArr);
     }
   };
 
@@ -70,7 +74,7 @@ function SignedInHomePage() {
   return (
     <div>
       <div>
-        {profileType == "Brand" ? (
+        {profileType == "Influencer" ? (
           <button onClick={createinf}>Create Influencer Profile</button>
         ) : (
           <button onClick={createbrand}>Create Brand Profile</button>
@@ -79,14 +83,19 @@ function SignedInHomePage() {
 
       <div>
         <p>tags display</p>
-        <Stack direction="row" spacing={1}>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={1}
+        >
           {tagItems}
         </Stack>
       </div>
 
       {showAllProfiles ? (
         <div>
-          {profileType == "Brand" ? <BrandProfiles /> : <InfluencerProfiles />}
+          {profileType == "Brand" ? <BrandProfiles /> : <InfluencerProfiles2 />}
         </div>
       ) : (
         <div></div>

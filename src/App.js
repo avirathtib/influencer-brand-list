@@ -5,9 +5,10 @@ import Signup from "./pages/Signup";
 import SignedInHomePage from "./pages/SignedInHomePage";
 import SignedOutHomePage from "./pages/SignedOutHomePage";
 import CreateInfluencerProfile from "./pages/CreateInfluencerProfile";
-import InfluencerProfiles from "./pages/InfluencerProfiles";
-import CreateBrandsProfile from "./pages/CreateBrandsProfile";
 import InfluencerIndividualProfiles from "./pages/InfluencerIndividualProfiles";
+import CreateBrandsProfile from "./pages/CreateBrandsProfile";
+
+import InfluencerProfiles2 from "./pages/InfluencerProfiles2";
 
 export const UserContext = createContext();
 export const ProfileContext = createContext();
@@ -34,10 +35,7 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="homepage" element={<SignedInHomePage />} />
-                <Route
-                  path="influencerProfiles"
-                  element={<InfluencerProfiles />}
-                />
+
                 <Route
                   path="createInfluencerPortfolio"
                   element={<CreateInfluencerProfile />}
@@ -49,6 +47,10 @@ function App() {
                 <Route
                   path="createBrandsPortfolio"
                   element={<CreateBrandsProfile />}
+                />
+                <Route
+                  path="influencerProfile"
+                  element={<InfluencerProfiles2 />}
                 />
               </Routes>
             </Router>
