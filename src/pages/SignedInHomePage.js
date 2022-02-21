@@ -6,9 +6,10 @@ import {
   collection,
   setDoc,
   updateDoc,
+  getDoc,
   getDocs,
 } from "firebase/firestore";
-import { ProfileContext, SelectedTagsContext } from "../App";
+import { ProfileContext, SelectedTagsContext, UserContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import BrandProfiles from "./BrandProfiles";
 //import CreateBrandsProfile from "./pages/CreateBrandsProfile";
@@ -16,12 +17,15 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import InfluencerProfiles2 from "./InfluencerProfiles2";
 import "../styles/mui.css";
+import ProfileCard2 from "../components/ProfileCard2";
 
 function SignedInHomePage() {
   const { profileType, setProfileType } = useContext(ProfileContext);
+  const { email, setEmail } = useContext(UserContext);
   const { selectedTagList, setSelectedTagList } =
     useContext(SelectedTagsContext);
   const [tagList, setTagList] = useState([]);
+  const [extendedProfileCreated, setExtendedProfileCreated] = useState(false);
   const [showAllProfiles, setShowAllProfiles] = useState(true);
 
   useEffect(async () => {
@@ -33,10 +37,21 @@ function SignedInHomePage() {
         temp.push(doc.data().name);
       });
       setTagList(temp);
+      //#endregion
+      const docRef = doc(db, profileType, email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setExtendedProfileCreated(docSnap.data().extendedProfileCreated);
+        console.log(docSnap.data().extendedProfileCreated);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  }, [extendedProfileCreated]);
 
   const navigate = useNavigate();
 
@@ -74,15 +89,25 @@ function SignedInHomePage() {
   return (
     <div>
       <div>
-        {profileType == "Influencer" ? (
+        {}
+        {profileType == "Influencer" && !extendedProfileCreated ? (
           <button onClick={createinf}>Create Influencer Profile</button>
         ) : (
-          <button onClick={createbrand}>Create Brand Profile</button>
+          <div></div>
         )}
       </div>
 
       <div>
-        <p>tags display</p>
+        {}
+        {profileType == "Brand" && !extendedProfileCreated ? (
+          <button onClick={createbrand}>Create Brand Profile</button>
+        ) : (
+          <div></div>
+        )}
+      </div>
+
+      <div>
+        <p>{extendedProfileCreated}</p>
         <Stack
           direction="row"
           justifyContent="center"
@@ -95,7 +120,7 @@ function SignedInHomePage() {
 
       {showAllProfiles ? (
         <div>
-          {profileType == "Brand" ? <BrandProfiles /> : <InfluencerProfiles2 />}
+          {profileType == "Brand" ? <ProfileCard2 /> : <BrandProfiles />}
         </div>
       ) : (
         <div></div>

@@ -7,8 +7,10 @@ import SignedOutHomePage from "./pages/SignedOutHomePage";
 import CreateInfluencerProfile from "./pages/CreateInfluencerProfile";
 import InfluencerIndividualProfiles from "./pages/InfluencerIndividualProfiles";
 import CreateBrandsProfile from "./pages/CreateBrandsProfile";
+import ProfileCard2 from "./components/ProfileCard2";
 
 import InfluencerProfiles2 from "./pages/InfluencerProfiles2";
+import IndividualBrandProfiles from "./pages/IndividualBrandProfiles";
 
 export const UserContext = createContext();
 export const ProfileContext = createContext();
@@ -32,6 +34,7 @@ function App() {
             <Router>
               <Routes>
                 <Route path="" element={<SignedOutHomePage />} />
+                <Route path="profilecard" element={<ProfileCard2 />} />
                 <Route path="login" element={<Login />} />
                 <Route path="signup" element={<Signup />} />
                 <Route path="homepage" element={<SignedInHomePage />} />
@@ -43,6 +46,10 @@ function App() {
                 <Route
                   path="profiles/:id"
                   element={<InfluencerIndividualProfiles />}
+                />
+                <Route
+                  path="companies/:brandname"
+                  element={<IndividualBrandProfiles />}
                 />
                 <Route
                   path="createBrandsPortfolio"

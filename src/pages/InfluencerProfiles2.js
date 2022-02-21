@@ -38,8 +38,9 @@ class InfluencerProfiles2 extends Component {
     const querySnapshot = await getDocs(collection(db, "Influencer"));
     console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      temp.push(doc.data());
+      if (doc.data().extendedProfileCreated == true) {
+        temp.push(doc.data());
+      }
     });
     this.setState({ profiles: temp });
     console.log(this.state.profiles);
@@ -261,52 +262,34 @@ const ExampleListItem = ({
   ));
   //#endregion
   console.log(extendedProfileCreated);
-  if (extendedProfileCreated == true) {
-    return (
-      <li
-        style={{
-          padding: 10,
-          listStyle: "none",
-          background: "#efefef",
-          borderRadius: "10px",
-          boxShadow: "1px 1px 5px #aaa",
-        }}
-      >
-        <h3>{name}</h3>
-        <p>{description}</p>
 
-        <ul className="tagsList" style={{ padding: 0 }}>
-          {renderedTags}
-        </ul>
-        <div>
-          <Link
-            to={`/profiles/${email}`}
-            className="button-17"
-            style={{ textDecoration: "none" }}
-          >
-            View Profile
-          </Link>
-        </div>
-      </li>
-    );
-  } else {
-    //#endregion
+  return (
+    <li
+      style={{
+        padding: 10,
+        listStyle: "none",
+        background: "#efefef",
+        borderRadius: "10px",
+        boxShadow: "1px 1px 5px #aaa",
+      }}
+    >
+      <h3>{name}</h3>
+      <p>{description}</p>
 
-    return (
-      <li
-        style={{
-          padding: 10,
-          listStyle: "none",
-          background: "#efefef",
-          borderRadius: "10px",
-          boxShadow: "1px 1px 5px #aaa",
-        }}
-      >
-        <h3>{name}</h3>
-        <p>Influencer profile not created</p>
-      </li>
-    );
-  }
+      <ul className="tagsList" style={{ padding: 0 }}>
+        {renderedTags}
+      </ul>
+      <div>
+        <Link
+          to={`/profiles/${email}`}
+          className="button-17"
+          style={{ textDecoration: "none" }}
+        >
+          View Profile
+        </Link>
+      </div>
+    </li>
+  );
 };
 
 export default InfluencerProfiles2;

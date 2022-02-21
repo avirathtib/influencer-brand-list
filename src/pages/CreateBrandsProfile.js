@@ -127,9 +127,16 @@ function CreateBrandsProfile() {
         <br />
         <input
           type="text"
-          name="jobSummary"
-          onChange={jobSummaryHandler}
-          placeholder="Job Summary"
+          name="expectedSkills"
+          onChange={expectedSkillsHandler}
+          placeholder="Expected Skills"
+        />
+        <br />
+        <input
+          type="text"
+          name="benefits"
+          onChange={benefitsHandler}
+          placeholder="Benefits"
         />
         <br />
         <input
